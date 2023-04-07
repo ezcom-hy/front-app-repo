@@ -18,7 +18,6 @@ jobs:
 
       - name: Build front
         run: |
-          rm -rf /home/ec2-user/environment/amazon-eks-frontend/build/*
           npm install
           npm run build
 
