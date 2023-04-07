@@ -18,6 +18,7 @@ jobs:
 
       - name: Build front
         run: |
+          rm -rf /__w/front-app-repo/front-app-repo/build/*
           npm install
           npm run build
 
