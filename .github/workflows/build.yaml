@@ -29,7 +29,7 @@ jobs:
           aws-region: ap-southeast-2
 
       - name: Login to Amazon ECR
-        id: login-ecr
+        id: gihub-action-hylee
         uses: aws-actions/amazon-ecr-login@v1
 
       - name: Get image tag(verion)
