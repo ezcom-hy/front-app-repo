@@ -30,8 +30,6 @@ jobs:
 
       - name: Login to Amazon ECR
         id: login-ecr
-        run: |
-          echo $PATH
         uses: aws-actions/amazon-ecr-login@v1
 
       - name: Get image tag(verion)
