@@ -30,11 +30,14 @@ jobs:
 
       - name: Login to Amazon ECR
         id: login-ecr
+        run: |
+          echo $PATH
         uses: aws-actions/amazon-ecr-login@v1
 
       - name: Get image tag(verion)
         id: image
         run: |
+          echo $PATH
           VERSION=$(echo ${{ github.sha }} | cut -c1-8)
           echo VERSION=$VERSION
           echo "::set-output name=version::$VERSION"
@@ -42,13 +45,12 @@ jobs:
       - name: Build, tag, and push image to Amazon ECR
         id: image-info
         env:
-          ## ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-          ECR_REGISTRY: 644631683002.dkr.ecr.ap-southeast-2.amazonaws.com
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           ECR_REPOSITORY: demo-frontend
           IMAGE_TAG: ${{ steps.image.outputs.version }}
         run: |
           echo "::set-output name=ecr_repository::$ECR_REPOSITORY"
           echo "::set-output name=image_tag::$IMAGE_TAG"
-          /usr/local/bin/docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
-          /usr/local/bin/docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
 
