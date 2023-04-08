@@ -30,7 +30,7 @@ jobs:
 
       - name: Login to Amazon ECR
         id: login-ecr
-        uses: aws-actions/amazon-ecr-login@v2
+        uses: aws-actions/amazon-ecr-login@v1
 
       - name: Get image tag(verion)
         id: image
@@ -48,6 +48,6 @@ jobs:
         run: |
           echo "::set-output name=ecr_repository::$ECR_REPOSITORY"
           echo "::set-output name=image_tag::$IMAGE_TAG"
-          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
-          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+          /usr/bin/docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+          /usr/bin/docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
 
